@@ -11,17 +11,17 @@ import Cocoa
 final class ShortcutManager {
     
     static let mirroringMonitorShortcut = Shortcut(key: .f16, modifiers: [])
-    static let disableWlanShortcut = Shortcut(key: .f17, modifiers: [])
-    static let disableBluetoothShortcut = Shortcut(key: .f17, modifiers: [.leftShift])
-    static let systemPrefsShortcut = Shortcut(key: .f18, modifiers: [])
-    static let launchpadShortcut = Shortcut(key: .f19, modifiers: [])
-    static let micMuteShortcut = Shortcut(key: .f20, modifiers: [])
-    static let micMuteShortcutActivate = Shortcut(key: .f20, modifiers: [.leftShift])
-    static let micMuteShortcutDeactivate = Shortcut(key: .f20, modifiers: [.rightShift])
-    static let backlightOffShortcut = Shortcut(key: .f16, modifiers: [.leftShift])
-    static let backlightDimmedShortcut = Shortcut(key: .f16, modifiers: [.rightShift])
-    static let backlightBrightShortcut = Shortcut(key: .f19, modifiers: [.leftShift])
-    
+    static let disableWlanShortcut = Shortcut(key: .f19, modifiers: [])
+    static let disableBluetoothShortcut = Shortcut(key: .f19, modifiers: [.leftShift])
+    static let systemPrefsShortcut = Shortcut(key: .f17, modifiers: [])
+    static let nightShiftShortcut = Shortcut(key: .f18, modifiers: [])
+//    static let micMuteShortcut = Shortcut(key: .f20, modifiers: [])
+//    static let micMuteShortcutActivate = Shortcut(key: .f20, modifiers: [.leftShift])
+//    static let micMuteShortcutDeactivate = Shortcut(key: .f20, modifiers: [.rightShift])
+//    static let backlightOffShortcut = Shortcut(key: .f16, modifiers: [.leftShift])
+//    static let backlightDimmedShortcut = Shortcut(key: .f16, modifiers: [.rightShift])
+//    static let backlightBrightShortcut = Shortcut(key: .f19, modifiers: [.leftShift])
+        
     static func register() {
         
         ShortcutMonitor.shared.register(systemPrefsShortcut, withAction: {
@@ -38,33 +38,34 @@ final class ShortcutManager {
             }
         })
         
-        ShortcutMonitor.shared.register(launchpadShortcut, withAction: {
-            startApp(withBundleIdentifier: "com.apple.launchpad.launcher")
+        ShortcutMonitor.shared.register(nightShiftShortcut, withAction: {
+            NightShiftManager.toggleCBBlueLight()
+            
         })
         
-        ShortcutMonitor.shared.register(micMuteShortcut, withAction: {
-            if(MuteMicManager.isMuted() == true){
-                HUD.showImage(Icons.unmute, status: NSLocalizedString("Microphone\nunmuted", comment: ""))
-                MuteMicManager.toggleMute()
-            } else {
-                HUD.showImage(Icons.mute, status: NSLocalizedString("Microphone\nmuted", comment: ""))
-                MuteMicManager.toggleMute()
-            }
-        })
-        
-        ShortcutMonitor.shared.register(micMuteShortcutActivate, withAction: {
-            if(MuteMicManager.isMuted() == true){
-                HUD.showImage(Icons.unmute, status: NSLocalizedString("Microphone\nunmuted", comment: ""))
-                MuteMicManager.activateMicrophone()
-            }
-        })
-        
-        ShortcutMonitor.shared.register(micMuteShortcutDeactivate, withAction: {
-            if(MuteMicManager.isMuted() == false){
-                HUD.showImage(Icons.mute, status: NSLocalizedString("Microphone\nmuted", comment: ""))
-                MuteMicManager.deactivateMicrophone()
-            }
-        })
+//        ShortcutMonitor.shared.register(micMuteShortcut, withAction: {
+//            if(MuteMicManager.isMuted() == true){
+//                HUD.showImage(Icons.unmute, status: NSLocalizedString("Microphone\nunmuted", comment: ""))
+//                MuteMicManager.toggleMute()
+//            } else {
+//                HUD.showImage(Icons.mute, status: NSLocalizedString("Microphone\nmuted", comment: ""))
+//                MuteMicManager.toggleMute()
+//            }
+//        })
+//
+//        ShortcutMonitor.shared.register(micMuteShortcutActivate, withAction: {
+//            if(MuteMicManager.isMuted() == true){
+//                HUD.showImage(Icons.unmute, status: NSLocalizedString("Microphone\nunmuted", comment: ""))
+//                MuteMicManager.activateMicrophone()
+//            }
+//        })
+//
+//        ShortcutMonitor.shared.register(micMuteShortcutDeactivate, withAction: {
+//            if(MuteMicManager.isMuted() == false){
+//                HUD.showImage(Icons.mute, status: NSLocalizedString("Microphone\nmuted", comment: ""))
+//                MuteMicManager.deactivateMicrophone()
+//            }
+//        })
         
         ShortcutMonitor.shared.register(disableWlanShortcut, withAction: {
             if(WifiManager.isPowered() == nil){
@@ -94,17 +95,17 @@ final class ShortcutManager {
             }
         })
         
-        ShortcutMonitor.shared.register(backlightOffShortcut, withAction: {
-            HUD.showImage(Icons.backlightOff, status: NSLocalizedString("Backlight\noff", comment: ""))
-        })
-        
-        ShortcutMonitor.shared.register(backlightDimmedShortcut, withAction: {
-            HUD.showImage(Icons.backlightDimmed, status: NSLocalizedString("Backlight\ndimmed", comment: ""))
-        })
-        
-        ShortcutMonitor.shared.register(backlightBrightShortcut, withAction: {
-            HUD.showImage(Icons.backlightBright, status: NSLocalizedString("Backlight\nbright", comment: ""))
-        })
+//        ShortcutMonitor.shared.register(backlightOffShortcut, withAction: {
+//            HUD.showImage(Icons.backlightOff, status: NSLocalizedString("Backlight\noff", comment: ""))
+//        })
+//
+//        ShortcutMonitor.shared.register(backlightDimmedShortcut, withAction: {
+//            HUD.showImage(Icons.backlightDimmed, status: NSLocalizedString("Backlight\ndimmed", comment: ""))
+//        })
+//
+//        ShortcutMonitor.shared.register(backlightBrightShortcut, withAction: {
+//            HUD.showImage(Icons.backlightBright, status: NSLocalizedString("Backlight\nbright", comment: ""))
+//        })
         
     }
     
